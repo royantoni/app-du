@@ -84,7 +84,6 @@ git push -u origin main
 Para agregar cambios a nuestro proyecto remoto
 
 ```
-git remote add origin https://github.com/royantoni/app-du.git
 git branch -M main
 git push -u origin main
 ```

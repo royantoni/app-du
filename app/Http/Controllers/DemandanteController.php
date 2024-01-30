@@ -13,7 +13,8 @@ class DemandanteController extends Controller
      */
     public function index()
     {
-        //
+        $demandantes = Demandante::all();
+        return response()->json($demandantes);
     }
 
     /**

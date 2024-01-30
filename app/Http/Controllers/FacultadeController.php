@@ -13,7 +13,8 @@ class FacultadeController extends Controller
      */
     public function index()
     {
-        //
+        $facultades = Facultade::all();
+        return response()->json($facultades);
     }
 
     /**
@@ -29,7 +30,16 @@ class FacultadeController extends Controller
      */
     public function store(StoreFacultadeRequest $request)
     {
-        //
+        $facultade = new Facultade();
+        $facultade->nombre = $request->nombre;
+        $facultade->save();
+
+        $data = [
+            'msg' => 'Facultad creada',
+            'facultad' => $facultade
+        ];
+
+        return response()->json($data);
     }
 
     /**
@@ -37,7 +47,7 @@ class FacultadeController extends Controller
      */
     public function show(Facultade $facultade)
     {
-        //
+        return response()->json($facultade);
     }
 
     /**
@@ -53,7 +63,14 @@ class FacultadeController extends Controller
      */
     public function update(UpdateFacultadeRequest $request, Facultade $facultade)
     {
-        //
+        $facultade->nombre = $request->nombre;
+        $facultade->save();
+        $data = [
+            'msg' => 'Facultad Actualizada',
+            'facultad' => $facultade
+        ];
+
+        return response()->json($data);
     }
 
     /**
@@ -61,6 +78,12 @@ class FacultadeController extends Controller
      */
     public function destroy(Facultade $facultade)
     {
-        //
+        $facultade->delete();
+        $data = [
+            'msg' => 'Facultad eliminada',
+            'facultad' => $facultade
+        ];
+
+        return response()->json($data);
     }
 }

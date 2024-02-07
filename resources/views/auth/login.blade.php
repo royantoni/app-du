@@ -51,7 +51,7 @@
         </div>
 
         <x-primary-button>
-            {{ __('Log in') }}
+            {{ __('Iniciar') }}
         </x-primary-button>
 
 

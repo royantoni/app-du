@@ -16,6 +16,8 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "flowbite": "^2.2.1"
+        "filepond": "^4.30.6",
+        "flowbite": "^2.2.1",
+        "sweetalert2": "^11.10.4"
     }
 }

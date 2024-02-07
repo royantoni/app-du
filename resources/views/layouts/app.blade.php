@@ -11,8 +11,9 @@
 
 
     <!-- Scripts -->
+   
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    @livewireStyles
 </head>
 
 <body class="antialiased">
@@ -38,11 +39,20 @@
     {{-- INTERFAZ DE USUARIO PARA UNA PERSONA EN COMUN --}}
     @if (auth()->user()->privilegio == 3)
         @include('layouts.navuser')
-        <main>
-            {{ $slot }}
-        </main>
+
+        <section class="bg-white dark:bg-gray-900 min-h-screen">
+            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-12 ">
+                <main>
+                    {{ $slot }}
+                </main>
+                
+            </div>
+        </section>
+        
     @endif
     </div>
+    @livewireScripts
+    @stack('js')
 </body>
 
 </html>

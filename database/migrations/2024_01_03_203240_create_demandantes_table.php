@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('apellidos');
             $table->string('domicilio')->nullable();
             $table->string('telefono');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamps();
 
-            $table->foreignId('ecuela_profesionale_id')->constrained()
+            $table->foreignId('ecuela_profesionale_id')->nullable()->constrained()
             ->onUpdate('cascade')
             ->onDelete('cascade');
 

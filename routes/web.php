@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Persona\DenunciaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,13 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function(){
 
-});
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if (auth()->user()->privilegio == 2) {
+        return view('dashboard');
+    }
+    if (auth()->user()->privilegio == 3) {
+        return view('userpanel');
+    }  
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -33,3 +39,18 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+/* Rutas de administrador */
+
+Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function(){
+
+});
+
+/* Rutas del usuario */
+Route::middleware('auth')->group(function () {
+    Route::get('/persona', [DenunciaController::class, 'index'])->name('persona.index');
+    Route::get('/persona/lista', [DenunciaController::class, 'lista'])->name('persona.lista');
+    Route::get('/persona/adjuntar/{id_denuncia}', [DenunciaController::class, 'adjuntar'])->name('persona.adjuntar');
+    Route::get('/persona/word/{id_denuncia}', [DenunciaController::class, 'generar_word'])->name('persona.word');
+    Route::get('/persona/actualizar', [DenunciaController::class, 'actualizar_datos'])->name('persona.actualizar');
+});

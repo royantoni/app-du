@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DenunciaController as AdminDenunciaController;
 use App\Http\Controllers\EcuelaProfesionaleController;
 use App\Http\Controllers\FacultadeController;
 use App\Http\Controllers\Persona\DenunciaController;
@@ -62,4 +63,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function(){
     Route::resource('facultades', FacultadeController::class);
     Route::resource('ecuela_profesionales', EcuelaProfesionaleController::class);
+    Route::get('denuncia', [AdminDenunciaController::class, 'index'])->name('denuncia.index');
 });
+

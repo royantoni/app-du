@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EcuelaProfesionaleController;
 use App\Http\Controllers\FacultadeController;
 use App\Http\Controllers\Persona\DenunciaController;
 use App\Http\Controllers\ProfileController;
@@ -60,5 +61,5 @@ Route::middleware('auth')->group(function () {
 /* Rutas para el administrador */
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function(){
     Route::resource('facultades', FacultadeController::class);
-    Route::resource('ecuela_profesionales', EcuelaProfesionale::class);
+    Route::resource('ecuela_profesionales', EcuelaProfesionaleController::class);
 });

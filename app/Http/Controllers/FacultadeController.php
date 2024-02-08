@@ -13,8 +13,11 @@ class FacultadeController extends Controller
      */
     public function index()
     {
-        $facultades = Facultade::all();
-        return response()->json($facultades);
+        $obj_facultad = new Facultade();
+        $data = $obj_facultad->mostrar_todo();
+        return view('facultad.index', compact('data'));
+        /* $facultades = Facultade::all();
+        return response()->json($facultades); */
     }
 
     /**
@@ -22,7 +25,7 @@ class FacultadeController extends Controller
      */
     public function create()
     {
-        //
+        return view('facultad.create');
     }
 
     /**
@@ -30,7 +33,13 @@ class FacultadeController extends Controller
      */
     public function store(StoreFacultadeRequest $request)
     {
-        $facultade = new Facultade();
+        
+        Facultade::create($request->only('nombre'));       
+        return redirect()->route('admin.facultades.create')->with('success', 'Facultad registrada');
+        
+
+
+        /* $facultade = new Facultade();
         $facultade->nombre = $request->nombre;
         $facultade->save();
 
@@ -39,7 +48,7 @@ class FacultadeController extends Controller
             'facultad' => $facultade
         ];
 
-        return response()->json($data);
+        return response()->json($data); */
     }
 
     /**
@@ -47,7 +56,8 @@ class FacultadeController extends Controller
      */
     public function show(Facultade $facultade)
     {
-        return response()->json($facultade);
+        return view('facultad.show', compact('facultade'));
+        /* return response()->json($facultade); */
     }
 
     /**
@@ -55,7 +65,7 @@ class FacultadeController extends Controller
      */
     public function edit(Facultade $facultade)
     {
-        //
+        return view('facultad.edit', compact('facultade'));
     }
 
     /**
@@ -63,14 +73,21 @@ class FacultadeController extends Controller
      */
     public function update(UpdateFacultadeRequest $request, Facultade $facultade)
     {
-        $facultade->nombre = $request->nombre;
+
+        $facultade->update([
+            $facultade->nombre = $request->nombre
+        ]);
+
+        return redirect()->route('admin.facultades.edit', $facultade)->with('success', 'Facultad actualizada');
+
+        /* $facultade->nombre = $request->nombre;
         $facultade->save();
         $data = [
             'msg' => 'Facultad Actualizada',
             'facultad' => $facultade
         ];
 
-        return response()->json($data);
+        return response()->json($data); */
     }
 
     /**
@@ -79,11 +96,13 @@ class FacultadeController extends Controller
     public function destroy(Facultade $facultade)
     {
         $facultade->delete();
-        $data = [
+        return redirect()->route('admin.facultades.index')->with('success', 'Facultad eliminada');
+
+        /* $data = [
             'msg' => 'Facultad eliminada',
             'facultad' => $facultade
         ];
 
-        return response()->json($data);
+        return response()->json($data); */
     }
 }

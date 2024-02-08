@@ -11,7 +11,7 @@
 
 
     <!-- Scripts -->
-   
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
@@ -21,19 +21,12 @@
     @if (auth()->user()->privilegio == 2)
         @include('layouts.navigation')
 
-        <!-- Page Heading -->
-        @if (isset($header))
-            <header class="bg-white dark:bg-gray-800 shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endif
+        <div class="p-4 sm:ml-64 dark:bg-gray-900 min-h-screen">
+            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+                {{ $slot }}
 
-        <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+            </div>
+        </div>
     @endif
 
     {{-- INTERFAZ DE USUARIO PARA UNA PERSONA EN COMUN --}}
@@ -45,10 +38,9 @@
                 <main>
                     {{ $slot }}
                 </main>
-                
+
             </div>
         </section>
-        
     @endif
     </div>
     @livewireScripts

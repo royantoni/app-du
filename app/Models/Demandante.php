@@ -31,5 +31,18 @@ class Demandante extends Model
         ->get();
         return $denuncias;
     }
+
     
+    
+    public function buscar_denuncias_recibidas($search, $pagina){
+        $denuncias = DB::table('demandantes as dem')
+        ->join('denuncias as den', 'dem.id', '=', 'den.demandante_id')
+        ->join('quejados as q', 'q.id', '=', 'den.quejado_id')
+        ->where('dem.nombres', 'like', '%' . $search . '%')
+        ->orWhere('dem.apellidos', 'like', '%' . $search . '%')    
+        ->select('den.*', 'dem.nombres', 'dem.apellidos')
+        ->orderBy('den.created_at', 'desc')
+        ->paginate($pagina);
+        return $denuncias;
+    }
 }

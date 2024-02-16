@@ -1,11 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\DenunciaController as AdminDenunciaController;
+use App\Http\Controllers\AjusteController;
 use App\Http\Controllers\EcuelaProfesionaleController;
 use App\Http\Controllers\FacultadeController;
 use App\Http\Controllers\Persona\DenunciaController;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Admin\Denuncia;
+use App\Models\Demandante;
 use App\Models\EcuelaProfesionale;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +32,10 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     if (auth()->user()->privilegio == 2) {
-        return view('dashboard');
+        $cant_usuarios = count(User::where('privilegio', '=', '3')->get());
+        $cant_denuncias = count(DB::table('denuncias')->get());
+        
+        return view('dashboard', compact('cant_usuarios', 'cant_denuncias'));
     }
     if (auth()->user()->privilegio == 3) {
         return view('userpanel');
@@ -64,5 +72,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('facultades', FacultadeController::class);
     Route::resource('ecuela_profesionales', EcuelaProfesionaleController::class);
     Route::get('denuncia', [AdminDenunciaController::class, 'index'])->name('denuncia.index');
+    Route::get('ajustes/datos_admin/{user}', [AjusteController::class, 'edit'])->name('ajustes.datos_admin');
+    Route::put('ajustes/datos_admin/{user}', [AjusteController::class, 'update'])->name('ajuste.datos.update');
 });
 

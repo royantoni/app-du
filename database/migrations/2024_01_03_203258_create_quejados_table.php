@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('cargo')->nullable();
             $table->string('oficina_administrativo')->nullable();
             $table->timestamps();
+            $table->foreignId('facultade_id')->nullable()->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 

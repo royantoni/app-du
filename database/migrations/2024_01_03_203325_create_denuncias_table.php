@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('derechos_estimen_afectados')->nullable();
             $table->string('pdf')->nullable();
             $table->string('word')->nullable();
+            $table->string('observacion')->nullable();
+            $table->integer('estado')->default(0);
             $table->timestamps();
 
             $table->foreignId('demandante_id')->constrained()

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Persona;
 
-
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use PhpOffice\PhpWord\IOFactory;
@@ -15,6 +15,9 @@ class Word extends Component
     public $id_denuncia;
     public $visible = false;
     public $data = [];
+    public $cantidad_adjuntos = 0;
+
+    public $senior;
 
     public function mount()
     {
@@ -24,17 +27,24 @@ class Word extends Component
             ->join('documentos as do', 'do.denuncia_id', '=', 'd.id')
             ->leftJoin('ecuela_profesionales as ep', 'ep.id', '=', 'de.ecuela_profesionale_id')
             ->leftJoin('facultades as fa', 'fa.id', '=', 'ep.facultade_id')
-            ->select('de.*', 'q.nombres as nombres_q', 'q.apellidos as apellidos_q', 'q.telefono as telefono_q', 'q.cargo', 'q.oficina_administrativo', 'd.*', 'do.*', 'ep.nombre as escuela', 'ep.sede', 'fa.nombre as facultad')
+            ->select('de.*', 'de.tipo as tipod', 'q.nombres as nombres_q', 'q.apellidos as apellidos_q', 'q.telefono as telefono_q', 'q.cargo', 'q.oficina_administrativo', 'd.*', 'd.created_at as fecha_denuncia', 'do.*', 'ep.nombre as escuela', 'ep.sede', 'fa.nombre as facultad')
             ->where('d.id', '=', $this->id_denuncia)
             ->get();
 
+        /* dd($this->data); */
 
+        $this->cantidad_adjuntos = count($this->data);
 
-        if (file_exists('solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx')) {
-            $this->visible = true;
-        } else {
-            $this->visible = false;
+        if ($this->cantidad_adjuntos > 0) {
+            if (file_exists('solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx')) {
+                $this->visible = true;
+            } else {
+                $this->visible = false;
+            }
         }
+
+        $user_admin = User::where('privilegio', '=', 2)->get();
+        $this->senior = $user_admin[0]['name'] . ' ' . $user_admin[0]['lastname'];
     }
 
 
@@ -56,6 +66,10 @@ class Word extends Component
 
 
                 $phpWord->setValues([
+
+                    'senior' => $this->senior,
+                    'fecha_solicitud' => $this->data[0]->fecha_denuncia,
+
                     'nombres' => $this->data[0]->nombres,
                     'apellidos' => $this->data[0]->apellidos,
                     'dni' => $this->data[0]->dni,
@@ -75,7 +89,30 @@ class Word extends Component
                     'asunto' => $this->data[0]->asunto,
                     'descripcion_echos' => $this->data[0]->descripcion_echos,
                     'derechos_estimen_afectados' => $this->data[0]->derechos_estimen_afectados,
+
                 ]);
+
+                switch ($this->data[0]->tipod) {
+                    case 'Estudiante':
+                        $phpWord->setValue('es', 'X');
+                        $phpWord->setValue('do', '');
+                        $phpWord->setValue('ad', '');
+                        break;
+                    case 'Docente':
+                        $phpWord->setValue('do', 'X');
+                        $phpWord->setValue('es', '');
+                        $phpWord->setValue('ad', '');
+                        break;
+                    case 'Administrativo':
+                        $phpWord->setValue('ad', 'X');
+                        $phpWord->setValue('es', '');
+                        $phpWord->setValue('do', '');
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
 
                 $contador = 1;
                 $lista_documentos = array();
@@ -129,11 +166,11 @@ class Word extends Component
             $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content, 'PDF');
             $pdfFileName = "doc_" . time() . '.pdf';
             $PDFWriter->save(public_path('solicitudes/' . $pdfFileName)); */
-           /*  return response()->download(public_path('solicitudes/' . $pdfFileName)); */
+            /*  return response()->download(public_path('solicitudes/' . $pdfFileName)); */
 
 
 
-             $cargar_word = IOFactory::load('solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx');
+            $cargar_word = IOFactory::load('solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx');
 
             $options = new Options();
             $options->set('isHtml5ParserEnabled', true);
@@ -163,8 +200,6 @@ class Word extends Component
             /* return response()->streamDownload(function () use ($pdfContent) {
                 echo $pdfContent;
             }, 'converted_file.pdf'); */
-
-           
         } catch (\Throwable $th) {
             dd($th->getMessage());
             throw $th;

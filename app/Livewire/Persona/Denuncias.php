@@ -3,6 +3,7 @@
 namespace App\Livewire\Persona;
 
 use App\Models\Demandante;
+use App\Models\Facultade;
 use App\Models\Quejado;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -23,6 +24,7 @@ class Denuncias extends Component
     public $telefono_q;
     public $cargo; 
     public $oficina_administrativo;
+    public $facultade_id;
 
     #[Validate('required')]
     public $asunto;
@@ -32,11 +34,13 @@ class Denuncias extends Component
 
     public $derechos_estimen_afectados, $pdf_path, $word_path, $demandante_id, $quejado_id;
     public $nombre, $tipo, $archivo, $denuncia_id;
+    public $facultades;
 
     
 
     public function mount(){
         $this->determinar_accion();
+        $this->facultades = Facultade::all();
     }
 
     public function determinar_accion()
@@ -70,7 +74,8 @@ class Denuncias extends Component
                 'apellidos' => $this->apellidos_q,
                 'telefono' => $this->telefono_q,
                 'cargo' => $this->cargo,
-                'oficina_administrativo' => $this->oficina_administrativo
+                'oficina_administrativo' => $this->oficina_administrativo,
+                'facultade_id' => $this->facultade_id
             ]);
 
             //Insertando datos a la tabla intermedia

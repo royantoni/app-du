@@ -20,7 +20,7 @@
                             clip-rule="evenodd" />
                     </svg>
 
-                    hace
+                   Creado {{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
                 </p>
                 <ul class="my-4 space-y-3">
 

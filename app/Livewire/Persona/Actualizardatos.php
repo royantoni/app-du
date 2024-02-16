@@ -41,6 +41,7 @@ class Actualizardatos extends Component
 
    
     public $email;
+    public $tipo = null;
 
 
     public $ecuela_profesionale_id = null;
@@ -100,6 +101,7 @@ class Actualizardatos extends Component
         $this->apellidos =  $this->demandante[0]['apellidos'];
         $this->domicilio =  $this->demandante[0]['domicilio'];
         $this->telefono =  $this->demandante[0]['telefono'];
+        $this->tipo =  $this->demandante[0]['tipo'];
         $this->ecuela_profesionale_id = $this->demandante[0]['ecuela_profesionale_id'];
     }
 
@@ -112,6 +114,7 @@ class Actualizardatos extends Component
 
     public function save()
     {
+        
 
 
         $this->validate();
@@ -132,12 +135,13 @@ class Actualizardatos extends Component
                 $this->demandantemodel->domicilio = $this->domicilio;
                 $this->demandantemodel->telefono = $this->telefono;
                 $this->demandantemodel->email = $this->email;
+                $this->demandantemodel->tipo = $this->tipo;
                 $this->demandantemodel->ecuela_profesionale_id = $this->ecuela_profesionale_id;
                 $this->demandantemodel->save();                
                 $this->dispatch('demandante_actualizada');              
             } else {
                 Demandante::create(
-                    $this->only('dni', 'codigo', 'nombres', 'apellidos', 'domicilio', 'telefono', 'email', 'ecuela_profesionale_id')
+                    $this->only('dni', 'codigo', 'nombres', 'apellidos', 'domicilio', 'telefono', 'email', 'ecuela_profesionale_id', 'tipo')
                 );                
                 $this->dispatch('demandante_creada');
                

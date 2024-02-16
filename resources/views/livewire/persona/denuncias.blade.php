@@ -50,13 +50,32 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="945454545">
                             </div>
-                            <div class="sm:col-span-2">
+                            <div class="w-full">
                                 <label for="cargo"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo
                                 </label>
                                 <input type="text" wire:model="cargo" id="cargo"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Secretaria">
+                            </div>
+                            <div class="w-full">
+                                <label for="facultade_id"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Facultad</label>
+                                <select id="facultade_id" wire:model.live="facultade_id"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+
+                                    <option value="0" selected="">Seleccione Facultad</option>
+                                    @foreach ($facultades as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                    @endforeach
+                                </select>
+                                <div>
+                                    @error('email')
+                                        <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span
+                                                class="font-medium">{{ $message }}</span></p>
+                                    @enderror
+                                </div>
+
                             </div>
 
 
@@ -95,22 +114,36 @@
                                 <textarea id="descripcion_echos" rows="8" wire:model="descripcion_echos"
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Your description here"></textarea>
-                                    <div>
-                                        @error('descripcion_echos')
-                                            <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span
-                                                    class="font-medium">{{ $message }}</span></p>
-                                        @enderror
-                                    </div>
+                                <div>
+                                    @error('descripcion_echos')
+                                        <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span
+                                                class="font-medium">{{ $message }}</span></p>
+                                    @enderror
+                                </div>
                             </div>
+
 
 
                         </div>
                     </div>
 
-                    <button type="submit"
-                        class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-blue-900 hover:bg-primary-800">
-                        Registrar mi denuncia
-                    </button>
+                    <div class="flex justify-between">
+                        <button type="submit"
+                            class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-blue-900 hover:bg-primary-800">
+                            Registrar mi denuncia
+                        </button>
+                        <a href="{{ route('dashboard') }}"
+                            class=" text-white inline-flex items-center mt-4 sm:mt-6 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                            <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Atras
+                        </a>
+                    </div>
+
                 </form>
             @else
                 <div class="py-8  mx-auto max-w-screen-xl text-center lg:py-16 ">
@@ -149,7 +182,7 @@
                         title: "Denuncia registrada",
                         showConfirmButton: false,
                         timer: 1500
-                    }).then((result)=>{
+                    }).then((result) => {
                         window.location.href = "{{ route('persona.index') }}";
                     });
                 });

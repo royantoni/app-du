@@ -18,6 +18,29 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </button>
+                    @if ($cantidad_adjuntos <= 0)
+                        <div class="py-8  mx-auto max-w-screen-xl text-center lg:py-16 ">
+
+                            <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16  dark:text-gray-400">
+                                Antes de
+                                realizar la accion adjunte archivos</p>
+                            <div class="flex flex-col mb-8 lg:mb-16  sm:flex-row sm:justify-center sm:space-y-0 ">
+                                <a href="{{ route('persona.adjuntar', $id_denuncia) }}"
+                                    class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                                    Adjuntar archivos
+
+                                    <svg class="ml-2 w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
+                                    </svg>
+                                </a>
+
+                            </div>
+
+                        </div>
+                    @endif
+
 
                     @if ($visible)
                         <div

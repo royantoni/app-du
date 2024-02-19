@@ -20,4 +20,18 @@ class Lista extends Component
     {
         return view('livewire.persona.lista');
     }
+
+    public function actualizar_estado ($id_denuncia){
+        
+        try {
+            DB::table('denuncias')
+            ->where('id','=', $id_denuncia)
+            ->update(['estado' => 1]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        return to_route('persona.lista');
+
+    }
 }

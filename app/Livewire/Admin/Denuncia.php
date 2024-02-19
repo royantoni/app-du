@@ -32,7 +32,7 @@ class Denuncia extends Component
     public function render()
     {
         $this->obj_demandante = new Demandante();
-        $denuncias = $this->obj_demandante->buscar_denuncias_recibidas($this->search, $this->pagina);
+        $denuncias = $this->obj_demandante->buscar_denuncias_recibidas($this->search, $this->pagina);   
         return view('livewire.admin.denuncia', ['denuncias' => $denuncias]);
     }
 }

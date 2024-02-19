@@ -38,8 +38,11 @@ class Demandante extends Model
         $denuncias = DB::table('demandantes as dem')
         ->join('denuncias as den', 'dem.id', '=', 'den.demandante_id')
         ->join('quejados as q', 'q.id', '=', 'den.quejado_id')
-        ->where('dem.nombres', 'like', '%' . $search . '%')
-        ->orWhere('dem.apellidos', 'like', '%' . $search . '%')    
+        ->where('den.estado', '=', 1)
+        ->where(function($query) use ($search) {
+            $query->where('dem.nombres', 'like', '%' . $search . '%')
+                ->orWhere('dem.apellidos', 'like', '%' . $search . '%');
+        })   
         ->select('den.*', 'dem.nombres', 'dem.apellidos')
         ->orderBy('den.created_at', 'desc')
         ->paginate($pagina);

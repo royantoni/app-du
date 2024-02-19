@@ -100,7 +100,7 @@
                 <span class="flex-1 ms-3 whitespace-nowrap">Denuncias</span>
 
                 @php                    
-                    $cant_denuncias_recientes = count(DB::table('denuncias')->where('estado', '=', 0)->get());
+                    $cant_denuncias_recientes = count(DB::table('denuncias')->where('estado', '=', 1)->get());
                 @endphp
 
                 @if ($cant_denuncias_recientes != 0)

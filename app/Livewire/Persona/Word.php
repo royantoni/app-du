@@ -85,6 +85,7 @@ class Word extends Component
                     'oficina_administrativa' => $this->data[0]->oficina_administrativo,
                     'cargo' => $this->data[0]->cargo,
                     'telefono_q' => $this->data[0]->telefono_q,
+                    'facultad_q' => '',
 
                     'asunto' => $this->data[0]->asunto,
                     'descripcion_echos' => $this->data[0]->descripcion_echos,
@@ -110,7 +111,9 @@ class Word extends Component
                         break;
 
                     default:
-                        # code...
+                        $phpWord->setValue('ad', '');
+                        $phpWord->setValue('es', '');
+                        $phpWord->setValue('do', '');
                         break;
                 }
 

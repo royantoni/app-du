@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/persona/adjuntar/{id_denuncia}', [DenunciaController::class, 'adjuntar'])->name('persona.adjuntar');
     Route::get('/persona/word/{id_denuncia}', [DenunciaController::class, 'generar_word'])->name('persona.word');
     Route::get('/persona/actualizar', [DenunciaController::class, 'actualizar_datos'])->name('persona.actualizar');
+    Route::get('/persona/firma', [DenunciaController::class, 'subir_firma'])->name('persona.firma.index');
 });
 
 /* Rutas para el administrador */

@@ -22,4 +22,8 @@ class DenunciaController extends Controller
     public function actualizar_datos(){
         return view('persona.actualizar_datos');
     }
+
+    public function subir_firma(){
+        return view('persona.firma');
+    }
 }

@@ -7,39 +7,32 @@
                 <div class="dark:bg-gray-800 py-4 px-10">
                     <h2 class="mb-8 text-xl font-bold text-gray-900 dark:text-white">Documentos para la solicitud</h2>
                     <div class="grid gap-4 sm:grid-cols-1 sm:gap-6">
-                       
-                           {{--  <div>
+
+                        {{--  <div>
                                 @foreach ($archivos as $file)
                                 <img src="{{ $file->temporaryUrl() }} " alt="aa">
                                 @endforeach
                             </div> --}}
 
-                            
+
                         <div class="w-full">
 
-                            <div
-                            wire:ignore
-                            x-data 
-                            x-init="
-
-                            FilePond.setOptions({
-                                
+                            <div wire:ignore x-data x-init="FilePond.setOptions({
+                            
                                 server: {
                                     process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
                                         @this.upload('archivos', file, load, error, progress)
                                     },
-                                    revert: (filename, load)=>{
-                                        @this.removeUpload('archivo', filename, load)
+                                    revert: (filename, load) => {
+                                        @this.removeUpload('archivos', filename, load)
                                     },
                                 },
                             });
-                            FilePond.create($refs.input);
-                            
-                            ">
+                            FilePond.create($refs.input);">
 
-                           
 
-                            
+
+
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     for="file_input">Cargar archivos</label>
                                 <input x-ref="input"
@@ -71,28 +64,29 @@
         </div>
     </section>
 
-  
+
 
     @push('js')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
 
-            Livewire.on('archivo_creado', () => {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Archivos guardados",
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then((result)=>{
-                    window.location.href = "{{ route('persona.adjuntar', ['id_denuncia' => $id_denuncia]) }}";
+                Livewire.on('archivo_creado', () => {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Archivos guardados",
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        window.location.href =
+                            "{{ route('persona.adjuntar', ['id_denuncia' => $id_denuncia]) }}";
+                    });
                 });
+
+
+
+
             });
-
-
-
-
-        });
-    </script>
-@endpush
+        </script>
+    @endpush
 </div>

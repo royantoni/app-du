@@ -16,8 +16,8 @@
             
             
 
-<div class="w-full   rounded-lg shadow flex justify-center">
-    <img class="p-8 rounded-full " src="https://defensoria.unamba.edu.pe/assets/images/logo-du-unamba.png" alt="product image" />
+<div class="w-full   rounded-lg shadow flex justify-center ">
+    <img class="p-8 rounded-full w-72 " src="{{ asset('logo/logo_du.svg') }}" alt="product image" />
     
 </div>
 

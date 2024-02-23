@@ -90,7 +90,7 @@
 
             </div>
             <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-                <img src="{{ asset('logo/baner_du.svg') }}" alt="mockup">
+                <img src="{{ asset('logo/baner_original.jpeg') }}" alt="mockup">
             </div>
         </div>
     </section>

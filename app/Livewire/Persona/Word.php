@@ -9,6 +9,7 @@ use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Dompdf\Options;
 use Dompdf\Dompdf;
+use PhpOffice\PhpWord\Settings;
 
 class Word extends Component
 {
@@ -31,7 +32,6 @@ class Word extends Component
             ->where('d.id', '=', $this->id_denuncia)
             ->get();
 
-        /* dd($this->data); */
 
         $this->cantidad_adjuntos = count($this->data);
 
@@ -52,14 +52,12 @@ class Word extends Component
     {
 
 
-
-
-
         if (count($this->data) == 0) {
             $this->dispatch('adjunte-archivo');
         } else {
 
             try {
+                
 
                 // Se crea la plantilla con sun valores
                 $phpWord = new TemplateProcessor('plantillas/futdu.docx');
@@ -117,7 +115,14 @@ class Word extends Component
                         break;
                 }
 
-                $contador = 1;
+                $phpWord->setImageValue('firma', [
+                    'path' => public_path('storage/' . $this->data[0]->firma),
+                    'width' => 100, // Ancho de la imagen en puntos
+                    'height' => 100, // Altura de la imagen en puntos
+                    'ratio' => false, // Mantener la relación de aspecto
+                ]);
+
+                /* $contador = 1;
                 $lista_documentos = array();
 
                 foreach ($this->data as $value) {
@@ -125,7 +130,7 @@ class Word extends Component
                     $contador++;
                 }
 
-                $phpWord->cloneBlock('block_name', 0, true, false, $lista_documentos);
+                $phpWord->cloneBlock('block_name', 0, true, false, $lista_documentos); */
                 $phpWord->saveAs('solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx');
 
 

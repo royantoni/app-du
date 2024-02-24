@@ -5,7 +5,7 @@
         <div class="py-2 px-4 mx-auto max-w-2xl  ">
 
             <section class="bg-white dark:bg-gray-900">
-                <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+                <div class=" px-4 mx-auto max-w-screen-xl text-center  lg:px-12">
                     <button wire:click="llenar_plantilla"
                         class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
                         role="alert">
@@ -21,7 +21,7 @@
                     @if ($cantidad_adjuntos <= 0)
                         <div class="py-8  mx-auto max-w-screen-xl text-center lg:py-16 ">
 
-                            <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16  dark:text-gray-400">
+                            <p class="mb-2 text-sm  text-gray-500 sm:px-16  dark:text-gray-400">
                                 Antes de
                                 realizar la accion adjunte archivos</p>
                             <div class="flex flex-col mb-8 lg:mb-16  sm:flex-row sm:justify-center sm:space-y-0 ">
@@ -73,6 +73,20 @@
                             </button>
                         </div>
                     @endif
+                    <div>
+                        <a href="{{ route('persona.lista') }}"
+                            class=" text-white inline-flex items-center mt-4 sm:mt-6 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                            <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Atras
+                        </a>
+                    </div>
+
+
 
 
 

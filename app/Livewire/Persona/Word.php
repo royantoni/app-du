@@ -57,7 +57,7 @@ class Word extends Component
         } else {
 
             try {
-                
+
 
                 // Se crea la plantilla con sun valores
                 $phpWord = new TemplateProcessor('plantillas/futdu.docx');
@@ -122,16 +122,26 @@ class Word extends Component
                     'ratio' => false, // Mantener la relación de aspecto
                 ]);
 
-                /* $contador = 1;
+                $contador = 1;
                 $lista_documentos = array();
 
                 foreach ($this->data as $value) {
-                    $lista_documentos[] = array('contador' => $contador, 'nombre-documento' => $value->nombre);
+                    $lista_documentos[] = array(
+                        'contador' => $contador,
+                        'nombredoc' => $value->nombre
+                    );
                     $contador++;
                 }
+                $phpWord->cloneBlock('adjuntos', 0, true, false, $lista_documentos);
+               
 
-                $phpWord->cloneBlock('block_name', 0, true, false, $lista_documentos); */
                 $phpWord->saveAs('solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx');
+                
+                DB::table('denuncias')
+                ->where('id', $this->id_denuncia)
+                ->update(['word' => 'solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx']);
+
+
 
 
 
@@ -144,6 +154,8 @@ class Word extends Component
         }
     }
 
+
+
     public function dword()
     {
         try {
@@ -151,7 +163,13 @@ class Word extends Component
                 "Content-Type: application/octet-stream"
             ];
 
-            return response()->download('solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx', $this->id_denuncia . '_' . $this->data[0]->dni . '.docx', $headers);
+            $archivo_bd = DB::table('denuncias')
+            ->where('id', '=', $this->id_denuncia)
+            ->get('word');
+
+            $ruta = $archivo_bd[0]->word;
+            return response()->download($ruta, $this->id_denuncia . '_solicitud_' . $this->data[0]->dni . '.docx', $headers);
+           
         } catch (\Throwable $th) {
             //throw $th;
         }

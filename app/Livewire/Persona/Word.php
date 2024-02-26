@@ -9,7 +9,7 @@ use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Dompdf\Options;
 use Dompdf\Dompdf;
-use PhpOffice\PhpWord\Settings;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Word extends Component
 {
@@ -58,10 +58,11 @@ class Word extends Component
 
             try {
 
+                /* CREANDO DOCUMENTO EN WORD */
+
 
                 // Se crea la plantilla con sun valores
                 $phpWord = new TemplateProcessor('plantillas/futdu.docx');
-
 
                 $phpWord->setValues([
 
@@ -133,18 +134,38 @@ class Word extends Component
                     $contador++;
                 }
                 $phpWord->cloneBlock('adjuntos', 0, true, false, $lista_documentos);
-               
 
-                $phpWord->saveAs('solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx');
-                
+                $nombre_archivo = 'solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni;
+
+                $phpWord->saveAs($nombre_archivo . '.docx');
+
+                // GUARDANDO RUTA DE WORD EN LA BD
+
+                DB::table('denuncias')
+                    ->where('id', $this->id_denuncia)
+                    ->update(['word' => $nombre_archivo . '.docx']);
+
+
+
+                /* CREANDO DOCUMENTO PDF */
+
+                $archivo_bd = DB::table('denuncias')
+                    ->where('id', '=', $this->id_denuncia)
+                    ->get('word');
+
+                $ruta = $archivo_bd[0]->word;
+
+                $domPdfPath = base_path('vendor/dompdf/dompdf');
+
+                \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
+                \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+                $contenido = \PhpOffice\PhpWord\IOFactory::load(public_path($ruta));
+                $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($contenido, 'PDF');
+                $PDFWriter->save(public_path($nombre_archivo . '.pdf'));
+
                 DB::table('denuncias')
                 ->where('id', $this->id_denuncia)
-                ->update(['word' => 'solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx']);
-
-
-
-
-
+                ->update(['pdf' => $nombre_archivo . '.pdf']);
 
 
                 $this->dispatch('solicitud-creada');
@@ -164,12 +185,11 @@ class Word extends Component
             ];
 
             $archivo_bd = DB::table('denuncias')
-            ->where('id', '=', $this->id_denuncia)
-            ->get('word');
+                ->where('id', '=', $this->id_denuncia)
+                ->get('word');
 
             $ruta = $archivo_bd[0]->word;
             return response()->download($ruta, $this->id_denuncia . '_solicitud_' . $this->data[0]->dni . '.docx', $headers);
-           
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -178,54 +198,12 @@ class Word extends Component
     {
         try {
 
+            $archivo_bd = DB::table('denuncias')
+                ->where('id', '=', $this->id_denuncia)
+                ->get('pdf');
 
-            /*  $fileName = "doc_" . time() . '.' . $request->file->extension();
-            $request->file->move(public_path('uploads'), $fileName); */
-            /* $domPdfPath = base_path('vendor/dompdf/dompdf');
-            \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
-            \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');       
-            $PDFWriter->setPaper('A4');
-     
-           
-
-            $Content = \PhpOffice\PhpWord\IOFactory::load(public_path('solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx'));
-            $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content, 'PDF');
-            $pdfFileName = "doc_" . time() . '.pdf';
-            $PDFWriter->save(public_path('solicitudes/' . $pdfFileName)); */
-            /*  return response()->download(public_path('solicitudes/' . $pdfFileName)); */
-
-
-
-            $cargar_word = IOFactory::load('solicitudes/' . $this->id_denuncia . '_' . $this->data[0]->dni . '.docx');
-
-            $options = new Options();
-            $options->set('isHtml5ParserEnabled', true);
-            $options->set('isRemoteEnabled', true);
-
-            $dompdf = new Dompdf($options);
-            $dompdf->setPaper('A4');
-
-
-
-            // Convierte el documento Word a HTML
-            $html = IOFactory::createWriter($cargar_word, 'HTML')->save('php://output');
-
-
-            // Carga HTML en DOMPDF
-            $dompdf->loadHtml($html);
-
-            // Renderiza el PDF
-            $dompdf->render();
-
-            // Obtén el contenido del PDF
-            $pdfContent = $dompdf->output();
-
-            return response()->download(public_path('solicitudes/' . $pdfContent));
-
-            // Envía el PDF como respuesta para descargar
-            /* return response()->streamDownload(function () use ($pdfContent) {
-                echo $pdfContent;
-            }, 'converted_file.pdf'); */
+            $ruta = $archivo_bd[0]->pdf;
+            return response()->download(public_path($ruta));
         } catch (\Throwable $th) {
             dd($th->getMessage());
             throw $th;

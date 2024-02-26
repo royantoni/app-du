@@ -35,7 +35,7 @@
                             Add product
                         </button>
                         <div class="flex items-center space-x-3 w-full md:w-auto">
-                            
+
                             <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown"
                                 class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                 type="button">
@@ -124,7 +124,7 @@
                 </div>
 
                 {{-- Tabla de denuncias --}}
-                
+
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -143,9 +143,12 @@
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                     <th scope="row"
-                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $item->nombres }} {{ $item->apellidos }}</th>
-                                    <td class="px-4 py-3">{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }} a las {{Carbon\Carbon::parse($item->created_at)->format('H:i')}}</td>
-                                    <td class="px-4 py-3">{{ $item->asunto }}</td>                                    
+                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $item->nombres }} {{ $item->apellidos }}</th>
+                                    <td class="px-4 py-3">
+                                        {{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }} a las
+                                        {{ Carbon\Carbon::parse($item->created_at)->format('H:i') }}</td>
+                                    <td class="px-4 py-3">{{ $item->asunto }}</td>
                                     <td class="px-4 py-3 flex items-center justify-end">
                                         <button id="{{ $item->id }}dropdown-button"
                                             data-dropdown-toggle="dropdow{{ $item->id }}"
@@ -166,8 +169,12 @@
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mostrar</a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ route('admin.denuncia.verificar', $item->id ) }}"
+                                                    <a href="{{ route('admin.denuncia.verificar', $item->id) }}"
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Respuesta</a>
+                                                </li>
+                                                <li>
+                                                    <a href=""
+                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Iniciar proceso</a>
                                                 </li>
                                             </ul>
                                             <div class="py-1">
@@ -188,10 +195,10 @@
                         </tbody>
                     </table>
                 </div>
-                
+
                 {{ $denuncias->links(data: ['scrollTo' => false]) }}
 
-                
+
             </div>
         </div>
     </section>

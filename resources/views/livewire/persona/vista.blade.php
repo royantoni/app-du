@@ -42,24 +42,32 @@
                 </figure>
                 <h2>Adjunto de imagenes</h2>
 
-                @if (count($imagenes) > 0)
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                <div class="flex flex-col md:grid md:grid-cols-3 gap-3">
+
+                    @if (count($imagenes) > 0)
                         @foreach ($imagenes as $item)
-                            <div>
-                                <img class=" h-auto max-w-full rounded-lg" src="{{ asset('storage/' . $item[1]) }}"
-                                    alt="">
+                            <div class="relative rounded overflow-hidden">
+                                <img src="{{ asset('storage/' . $item[1]) }}" alt="Hanging Planters" class="w-full">
+                                <p
+                                    class="cursor-pointer absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-2xl text-center text-white font-roboto font-medium group-hover:bg-opacity-60 transition">
+                                    @
+                                </p>
                             </div>
                         @endforeach
-                    </div>
-                @else
-                    <div class="text-sm dark:text-gray-300"> No hay prueba en imagenes </div>
-                @endif
+                    @else
+                        <div class="text-sm dark:text-gray-300"> No hay prueba en imagenes </div>
+                    @endif
+
+                    
+
+
+                </div>
+
+
                 <h2>Adjunto de audio</h2>
                 @if (count($audios) > 0)
                     <div class="grid grid-cols-1 gap-2 ">
                         @foreach ($audios as $item)
-                       
-                            
                             <audio class="" controls>
                                 <source src="{{ asset('storage/' . $item[1]) }}" type="audio/mp3">
                                 Your browser does not support the audio tag.
@@ -104,15 +112,19 @@
 
                                 </a>
                                 <div class="px-5 pb-5">
-                                    <h5 class="text-base font-semibold tracking-tight text-gray-900 dark:text-white mb-2">
+                                    <h5
+                                        class="text-base font-semibold tracking-tight text-gray-900 dark:text-white mb-2">
                                         {{ $item[0] }}</h5>
 
                                     <div class="flex items-center justify-between">
-                                        <span class="text-3xl font-bold text-gray-900 dark:text-white">{{$item[2]}}</span>
-                                        <button wire:click="descargar_documento('{{ $item[2] }}', '{{ $item[1] }}', '{{ $item[0] }}')" type="button"
+                                        <span
+                                            class="text-3xl font-bold text-gray-900 dark:text-white">{{ $item[2] }}</span>
+                                        <button
+                                            wire:click="descargar_documento('{{ $item[2] }}', '{{ $item[1] }}', '{{ $item[0] }}')"
+                                            type="button"
                                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Descargar</button>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         @endforeach
@@ -132,7 +144,7 @@
         </div>
     </main>
 
-    
+
 
 
 

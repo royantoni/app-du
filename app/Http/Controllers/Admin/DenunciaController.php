@@ -14,4 +14,8 @@ class DenunciaController extends Controller
     public function verificar_soliciud($id_denuncia){
         return view('admin.denuncia.verificar', compact('id_denuncia'));
     }
+
+    public function vista_general($id_denuncia){
+        return view('admin.denuncia.vista', compact('id_denuncia'));
+    }
 }

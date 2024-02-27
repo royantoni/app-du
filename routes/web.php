@@ -76,5 +76,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('ajustes/datos_admin/{user}', [AjusteController::class, 'edit'])->name('ajustes.datos_admin');
     Route::put('ajustes/datos_admin/{user}', [AjusteController::class, 'update'])->name('ajuste.datos.update');
     Route::get('verificar_denuncia/{id_denuncia}', [AdminDenunciaController::class, 'verificar_soliciud'])->name('denuncia.verificar');
+    Route::get('vista_general/{id_denuncia}', [AdminDenunciaController::class, 'vista_general'])->name('denuncia.vista');
 });
 

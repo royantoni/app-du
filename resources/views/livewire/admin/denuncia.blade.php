@@ -165,7 +165,7 @@
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="{{ $item->id }}dropdown-button">
                                                 <li>
-                                                    <a href=""
+                                                    <a href="{{ route('admin.denuncia.vista', $item->id) }}"
                                                         class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mostrar</a>
                                                 </li>
                                                 <li>

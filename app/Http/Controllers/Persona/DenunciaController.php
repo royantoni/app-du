@@ -26,4 +26,11 @@ class DenunciaController extends Controller
     public function subir_firma(){
         return view('persona.firma');
     }
+    public function ver_mensajes(){
+        return view('persona.mensaje');
+    }
+
+    public function vista_general_persona($id_denuncia){
+        return view('persona.vista', compact('id_denuncia'));
+    }
 }

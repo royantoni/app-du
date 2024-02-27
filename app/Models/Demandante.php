@@ -42,7 +42,28 @@ class Demandante extends Model
         $denuncias = DB::table('demandantes as dem')
             ->join('denuncias as den', 'dem.id', '=', 'den.demandante_id')
             ->join('quejados as q', 'q.id', '=', 'den.quejado_id')
-            ->where('den.estado', '=', 1)
+            ->where(
+                function ($query) use ($search) {
+                    $query->where('den.estado', '=', 1)
+                        ->orWhere('den.estado', '=', 2);
+                }
+            )
+            ->where(function ($query) use ($search) {
+                $query->where('dem.nombres', 'like', '%' . $search . '%')
+                    ->orWhere('dem.apellidos', 'like', '%' . $search . '%');
+            })
+            ->select('den.*', 'dem.nombres', 'dem.apellidos')
+            ->orderBy('den.created_at', 'desc')
+            ->paginate($pagina);
+        return $denuncias;
+    }
+
+    public function buscar_denuncias_aceptadas($search, $pagina)
+    {
+        $denuncias = DB::table('demandantes as dem')
+            ->join('denuncias as den', 'dem.id', '=', 'den.demandante_id')
+            ->join('quejados as q', 'q.id', '=', 'den.quejado_id')
+            ->where('den.estado', '=', 3)
             ->where(function ($query) use ($search) {
                 $query->where('dem.nombres', 'like', '%' . $search . '%')
                     ->orWhere('dem.apellidos', 'like', '%' . $search . '%');
@@ -62,10 +83,40 @@ class Demandante extends Model
             ->leftJoin('ecuela_profesionales as ecu', 'ecu.id', 'dem.ecuela_profesionale_id')
             ->leftJoin('facultades as fac', 'ecu.facultade_id', '=', 'fac.id')
             ->where('den.id', $id_denuncia)
-            ->select('dem.*', 'dem.created_at as fdemandante', 'den.*', 'den.created_at as fdenuncia',
-            'que.nombres as qnombres', 'que.apellidos as qapellidos', 'que.telefono as qtelefono', 'que.cargo', 'que.oficina_administrativo' ,
-            'ecu.*', 'fac.nombre as facultad', 'doc.nombre as dnombre', 'doc.tipo as tipodoc', 'doc.archivo')
+            ->select(
+                'dem.*',
+                'dem.created_at as fdemandante',
+                'den.*',
+                'den.created_at as fdenuncia',
+                'que.nombres as qnombres',
+                'que.apellidos as qapellidos',
+                'que.telefono as qtelefono',
+                'que.cargo',
+                'que.oficina_administrativo',
+                'ecu.*',
+                'fac.nombre as facultad',
+                'doc.nombre as dnombre',
+                'doc.tipo as tipodoc',
+                'doc.archivo'
+            )
             ->get();
         return $data;
     }
+
+    public function vista_mensajes(){
+        $data = DB::table('demandantes as dem')
+        ->join('denuncias as den', 'dem.id', '=', 'den.demandante_id')
+        ->where('dem.email', '=', auth()->user()->email)
+        ->where(function ($query) {
+            $query->where('den.estado', 2)
+            ->orWhere('den.estado', 3);
+        })
+        ->select('den.*')
+        ->orderBy('den.created_at', 'desc')
+        ->get();
+        return $data;
+    }
+
+
+
 }

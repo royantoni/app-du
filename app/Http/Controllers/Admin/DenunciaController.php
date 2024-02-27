@@ -18,4 +18,7 @@ class DenunciaController extends Controller
     public function vista_general($id_denuncia){
         return view('admin.denuncia.vista', compact('id_denuncia'));
     }
+    public function aceptada(){
+        return view('admin.denuncia.aceptada');
+    }
 }

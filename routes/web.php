@@ -66,6 +66,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/persona/word/{id_denuncia}', [DenunciaController::class, 'generar_word'])->name('persona.word');
     Route::get('/persona/actualizar', [DenunciaController::class, 'actualizar_datos'])->name('persona.actualizar');
     Route::get('/persona/firma', [DenunciaController::class, 'subir_firma'])->name('persona.firma.index');
+    Route::get('/persona/mensaje', [DenunciaController::class, 'ver_mensajes'])->name('persona.firma.sms');
+    Route::get('vista_general_persona/{id_denuncia}', [DenunciaController::class, 'vista_general_persona'])->name('denuncia.vista_general');
 });
 
 /* Rutas para el administrador */
@@ -77,5 +79,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('ajustes/datos_admin/{user}', [AjusteController::class, 'update'])->name('ajuste.datos.update');
     Route::get('verificar_denuncia/{id_denuncia}', [AdminDenunciaController::class, 'verificar_soliciud'])->name('denuncia.verificar');
     Route::get('vista_general/{id_denuncia}', [AdminDenunciaController::class, 'vista_general'])->name('denuncia.vista');
+    Route::get('denuncia_aceptada', [AdminDenunciaController::class, 'aceptada'])->name('denuncia.aceptada');
 });
 

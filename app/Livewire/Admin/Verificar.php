@@ -11,6 +11,15 @@ class Verificar extends Component
     public $estado = 3;
     public $observacion = "Solicitud aceptada";
 
+    public function mount()
+    {
+        $denuncia = DB::table('denuncias')
+            ->where('id', $this->id_denuncia)->first();
+
+        $this->observacion = $denuncia->observacion;
+        $this->estado = $denuncia->estado;
+    }
+
     public function render()
     {
         return view('livewire.admin.verificar');

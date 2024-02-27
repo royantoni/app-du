@@ -90,7 +90,7 @@
                 
                 
             </ul>
-            <button type="button"
+            <a href="{{ route('persona.firma.sms') }}"
                 class="ml-5 relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                     viewBox="0 0 20 16">
@@ -101,10 +101,24 @@
                 </svg>
                 <span class="sr-only">Notifications</span>
                 Mensajes
+                @php
+                    $mensajes_observados = count(DB::table('denuncias as den')
+                    ->join('demandantes as dem', 'dem.id', '=', 'den.demandante_id')
+                    ->where('dem.email', auth()->user()->email)
+                    ->where('estado', '=', 2)->get());
+                @endphp
+
+                @if ($mensajes_observados != 0)
                 <div
                     class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-                    8</div>
-            </button>
+                    {{ $mensajes_observados}}
+                
+                </div>
+                    
+                @endif
+
+                
+            </a>
 
         </div>
     </div>

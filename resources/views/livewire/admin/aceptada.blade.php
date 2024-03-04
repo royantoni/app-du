@@ -140,7 +140,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($denuncias as $item)
+                            @forelse ($expedientes as $item)
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">{{ $loop->iteration }}</td>
                                     <th scope="row"
@@ -150,17 +150,25 @@
                                         {{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }} a las
                                         {{ Carbon\Carbon::parse($item->created_at)->format('H:i') }}</td>
 
-                                    @if ($item->estado == 1)
+                                    @if ($item->estadoe == 0)
                                         <td class="px-4 py-3">
                                             <p><span
-                                                    class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Pendiente</span>
+                                                    class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">En
+                                                    proceso</span>
                                             </p>
                                         </td>
                                     @endif
-                                    @if ($item->estado == 2)
+                                    @if ($item->estadoe == 1)
                                         <td class="px-4 py-3">
                                             <p><span
-                                                    class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Observado</span>
+                                                    class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Derivado</span>
+                                            </p>
+                                        </td>
+                                    @endif
+                                    @if ($item->estadoe == 2)
+                                        <td class="px-4 py-3">
+                                            <p><span
+                                                    class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Archivado</span>
                                             </p>
                                         </td>
                                     @endif
@@ -181,17 +189,16 @@
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="{{ $item->id }}dropdown-button">
                                                 <li>
-                                                    <a href="{{ route('admin.denuncia.vista', $item->id) }}"
-                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mostrar</a>
+                                                    <a href="{{ route('admin.expediente.subir', $item->idexpediente) }}"
+                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Subir archivos</a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ route('admin.denuncia.verificar', $item->id) }}"
-                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Respuesta</a>
+                                                    <a href="{{ route('admin.expediente.ver', $item->idexpediente) }}"
+                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ver expediente</a>
                                                 </li>
                                                 <li>
                                                     <a href=""
-                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Iniciar
-                                                        proceso</a>
+                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cambiar estado</a>
                                                 </li>
                                             </ul>
                                             <div class="py-1">
@@ -213,7 +220,7 @@
                     </table>
                 </div>
 
-                {{ $denuncias->links(data: ['scrollTo' => false]) }}
+                {{ $expedientes->links(data: ['scrollTo' => false]) }}
 
 
             </div>

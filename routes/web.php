@@ -80,5 +80,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('verificar_denuncia/{id_denuncia}', [AdminDenunciaController::class, 'verificar_soliciud'])->name('denuncia.verificar');
     Route::get('vista_general/{id_denuncia}', [AdminDenunciaController::class, 'vista_general'])->name('denuncia.vista');
     Route::get('denuncia_aceptada', [AdminDenunciaController::class, 'aceptada'])->name('denuncia.aceptada');
+
+    //Modulo expediente
+    Route::get('subir_files/{id_expediente}', [AdminDenunciaController::class, 'subir_files'])->name('expediente.subir');
+    Route::get('ver_files/{id_expediente}', [AdminDenunciaController::class, 'ver_files'])->name('expediente.ver');
 });
 

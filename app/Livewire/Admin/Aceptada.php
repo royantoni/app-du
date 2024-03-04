@@ -26,7 +26,7 @@ class Aceptada extends Component
     public function render()
     {
         $this->obj_demandante = new Demandante();
-        $denuncias = $this->obj_demandante->buscar_denuncias_aceptadas($this->search, $this->pagina); 
-        return view('livewire.admin.aceptada',  ['denuncias' => $denuncias]);
+        $expedientes = $this->obj_demandante->buscar_denuncias_aceptadas($this->search, $this->pagina);       
+        return view('livewire.admin.aceptada',  ['expedientes' => $expedientes]);
     }
 }

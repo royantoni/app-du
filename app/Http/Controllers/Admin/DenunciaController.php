@@ -21,4 +21,14 @@ class DenunciaController extends Controller
     public function aceptada(){
         return view('admin.denuncia.aceptada');
     }
+
+    //Modulo expediente
+
+    public function subir_files($id_expediente){
+        return view('admin.expediente.subir', compact('id_expediente'));
+    }
+
+    public function ver_files($id_expediente){
+        return view('admin.expediente.ver', compact('id_expediente'));
+    }
 }

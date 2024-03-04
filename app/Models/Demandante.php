@@ -62,13 +62,12 @@ class Demandante extends Model
     {
         $denuncias = DB::table('demandantes as dem')
             ->join('denuncias as den', 'dem.id', '=', 'den.demandante_id')
-            ->join('quejados as q', 'q.id', '=', 'den.quejado_id')
-            ->where('den.estado', '=', 3)
+            ->join('expedientes as e', 'e.denuncia_id', '=', 'den.id')
             ->where(function ($query) use ($search) {
                 $query->where('dem.nombres', 'like', '%' . $search . '%')
                     ->orWhere('dem.apellidos', 'like', '%' . $search . '%');
             })
-            ->select('den.*', 'dem.nombres', 'dem.apellidos')
+            ->select('den.*', 'dem.nombres', 'dem.apellidos', 'e.*', 'e.id as idexpediente')
             ->orderBy('den.created_at', 'desc')
             ->paginate($pagina);
         return $denuncias;
@@ -114,6 +113,17 @@ class Demandante extends Model
         ->select('den.*')
         ->orderBy('den.created_at', 'desc')
         ->get();
+        return $data;
+    }
+
+    public function obtener_dni_con_expediente($id_expediente){
+        $data = DB::table('demandantes as dem')
+        ->join('denuncias as den', 'dem.id', '=', 'den.demandante_id')
+        ->join('expedientes as exp', 'den.id', '=', 'exp.denuncia_id')
+        ->where('exp.id', '=', $id_expediente)
+        ->select('dem.dni')
+        ->get();
+        
         return $data;
     }
 

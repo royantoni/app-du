@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
-use Livewire\Attributes\On;
+
+
 
 class Subirfile extends Component
 {
@@ -31,6 +32,9 @@ class Subirfile extends Component
     public $ruta_archivo;
 
     public $nombre_nuevo;
+
+    public $ruta_ver = "";
+    public $tipo_archivo = "";
 
     public function mount()
     {
@@ -102,19 +106,58 @@ class Subirfile extends Component
     {
 
         try {
-
             if (Storage::disk('public')->exists($this->ruta_archivo)) {
                 Storage::disk('public')->delete($this->ruta_archivo);
             }
-
-
             Archivo::destroy($this->id_archivo);
+            $this->ruta_ver = "";
         } catch (\Throwable $th) {
             //throw $th;
         }
 
-        return to_route('admin.expediente.subir', $this->id_expediente);
+        $this->actualizar_la_tabla();
     }
+
+    public function editar_file($id){
+        $this->id_archivo = $id;
+        $archivo = Archivo::find($id);
+        $this->nombre_nuevo = $archivo->nombrea;
+    }
+
+    public function actualizar_file(){
+        try {
+            DB::table('archivos')
+            ->where('id', $this->id_archivo)
+            ->update(['nombrea' => $this->nombre_nuevo]);
+            $this->actualizar_la_tabla();
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        $this->ruta_ver = "";
+        
+    }
+
+   
+
+    public function ver_archivo($id, $archivo){
+        $this->ruta_ver = $archivo;
+        $extensiones_imagen = ['jpg', 'jpeg', 'png', 'gif', 'bmp']; // Lista de extensiones de imagen
+        $extension = Str::lower(pathinfo($this->ruta_ver, PATHINFO_EXTENSION)); // Obtener la extensión del archivo y convertirla a minúsculas
+        if (in_array($extension, $extensiones_imagen)) {
+            $this->tipo_archivo = "imagen";
+        }else{
+            $this->tipo_archivo = "";
+        }        
+       
+    }
+    
+    public function actualizar_la_tabla(){
+        $this->obj_archivo = new Archivo();
+        $this->archivos_tabla = $this->obj_archivo->mostrar_archivos_por_expediente($this->id_expediente);
+    }
+
+    
 
 
 

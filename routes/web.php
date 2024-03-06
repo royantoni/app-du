@@ -84,5 +84,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     //Modulo expediente
     Route::get('subir_files/{id_expediente}', [AdminDenunciaController::class, 'subir_files'])->name('expediente.subir');
     Route::get('ver_files/{id_expediente}', [AdminDenunciaController::class, 'ver_files'])->name('expediente.ver');
+
+    //Modulo ajustes
+    Route::get('ajustes', [AdminDenunciaController::class, 'ajustes'])->name('ajustes.inicio');
 });
 

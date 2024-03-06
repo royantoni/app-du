@@ -31,4 +31,8 @@ class DenunciaController extends Controller
     public function ver_files($id_expediente){
         return view('admin.expediente.ver', compact('id_expediente'));
     }
+
+    public function ajustes(){
+        return view('admin.ajustes.inicio');
+    }
 }

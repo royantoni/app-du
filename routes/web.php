@@ -31,7 +31,7 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', function () {
-    if (auth()->user()->privilegio == 2) {
+    if (auth()->user()->privilegio == 2 || auth()->user()->privilegio == 1) {
         $cant_usuarios = count(User::where('privilegio', '=', '3')->get());
         $cant_denuncias = count(DB::table('denuncias')->get());
         

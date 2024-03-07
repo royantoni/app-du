@@ -33,4 +33,11 @@ class DenunciaController extends Controller
     public function vista_general_persona($id_denuncia){
         return view('persona.vista', compact('id_denuncia'));
     }
+
+    public function lista_expedientes(){
+        return view('persona.listaexpediente');
+    }
+    public function ver_files($id_expediente){
+        return view('admin.expediente.ver', compact('id_expediente'));
+    }
 }

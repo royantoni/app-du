@@ -67,6 +67,7 @@ class Demandante extends Model
                 $query->where('dem.nombres', 'like', '%' . $search . '%')
                     ->orWhere('dem.apellidos', 'like', '%' . $search . '%');
             })
+            ->where('den.estado', '=', 3)
             ->select('den.*', 'dem.nombres', 'dem.apellidos', 'e.*', 'e.id as idexpediente')
             ->orderBy('den.created_at', 'desc')
             ->paginate($pagina);
@@ -125,6 +126,23 @@ class Demandante extends Model
         ->get();
         
         return $data;
+    }
+
+    public function buscar_denuncias_aceptadas_de_user($search, $pagina)
+    {
+        $denuncias = DB::table('demandantes as dem')
+            ->join('denuncias as den', 'dem.id', '=', 'den.demandante_id')
+            ->join('expedientes as e', 'e.denuncia_id', '=', 'den.id')
+            ->where(function ($query) use ($search) {
+                $query->where('dem.nombres', 'like', '%' . $search . '%')
+                    ->orWhere('dem.apellidos', 'like', '%' . $search . '%');
+            })
+            ->where('den.estado', '=', 3)
+            ->where('dem.email', '=', auth()->user()->email)
+            ->select('den.*', 'dem.nombres', 'dem.apellidos', 'e.*', 'e.id as idexpediente')
+            ->orderBy('den.created_at', 'desc')
+            ->paginate($pagina);
+        return $denuncias;
     }
 
 

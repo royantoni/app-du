@@ -68,6 +68,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/persona/firma', [DenunciaController::class, 'subir_firma'])->name('persona.firma.index');
     Route::get('/persona/mensaje', [DenunciaController::class, 'ver_mensajes'])->name('persona.firma.sms');
     Route::get('vista_general_persona/{id_denuncia}', [DenunciaController::class, 'vista_general_persona'])->name('denuncia.vista_general');
+    Route::get('/persona/lista_expediente', [DenunciaController::class, 'lista_expedientes'])->name('persona.lista_expediente.index');
+    //Modulo expedientes
+    Route::get('ver_expediente/{id_expediente}', [DenunciaController::class, 'ver_files'])->name('user.expediente.ver');
 });
 
 /* Rutas para el administrador */

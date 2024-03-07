@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('expedientes', function (Blueprint $table) {
             $table->id();
+            $table->string('numeroexp');
             $table->integer('estadoe')->default(0);
             $table->text('observacione')->nullable();
             $table->boolean('visible')->default(false);

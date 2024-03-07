@@ -21,7 +21,7 @@ class Admin extends Seeder
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'privilegio' => 2,
+            'privilegio' => 1,
             'remember_token' => Str::random(10),
         ]);
     }

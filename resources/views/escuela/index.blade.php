@@ -82,11 +82,11 @@
                                                 </li>
                                             </ul>
                                             <form action="{{ route('admin.ecuela_profesionales.destroy', $list->id) }}"
-                                                method="POST" class="formulario_eliminar">
+                                                method="POST" id="formulario_eliminar_{{ $list->id }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="py-1">
-                                                    <button type="button" onclick="confirmar_eliminacion()"
+                                                    <button type="button" onclick="confirmar_eliminacion('{{ $list->id }}')"
                                                         class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Eliminar</button>
                                                 </div>
                                             </form>
@@ -112,7 +112,7 @@
 
     @push('js')
         <script>
-            function confirmar_eliminacion() {
+            function confirmar_eliminacion(id) {
                 Swal.fire({
                     title: "¿Estás seguro de eliminar?",
                     text: "¡No podrás revertir esto!",
@@ -124,7 +124,9 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Si el usuario confirma, enviar el formulario para eliminar el registro
-                        document.querySelector('.formulario_eliminar').submit();
+                        let formId = 'formulario_eliminar_' + id;
+                        let form = document.getElementById(formId);
+                        form.submit();
                     }
                 });
             }

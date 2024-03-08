@@ -95,6 +95,7 @@ class FacultadeController extends Controller
      */
     public function destroy(Facultade $facultade)
     {
+        
         $facultade->delete();
         return redirect()->route('admin.facultades.index')->with('success', 'Facultad eliminada');
 

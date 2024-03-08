@@ -19,7 +19,7 @@
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg ">
                 <div
                     class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                    
+
                     <div
                         class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                         <a href="{{ route('admin.facultades.create') }}"
@@ -31,7 +31,7 @@
                             </svg>
                             Argegar facultad
                         </a>
-                       
+
                     </div>
                 </div>
                 <div class="overflow-x-auto">
@@ -80,11 +80,12 @@
                                                 </li>
                                             </ul>
                                             <form action="{{ route('admin.facultades.destroy', $list->id) }}"
-                                                method="POST" class="formulario_eliminar">
+                                                method="POST" id="formulario_eliminar_{{ $list->id }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="py-1">
-                                                    <button type="button" onclick="confirmar_eliminacion()"
+                                                    <button type="button"
+                                                        onclick="confirmar_eliminacion('{{ $list->id }}')"
                                                         class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Eliminar</button>
                                                 </div>
                                             </form>
@@ -109,8 +110,8 @@
     </section>
 
     @push('js')
-        <script>           
-            function confirmar_eliminacion() {
+        <script>
+            function confirmar_eliminacion(id) {
                 Swal.fire({
                     title: "¿Estás seguro de eliminar?",
                     text: "¡No podrás revertir esto!",
@@ -121,8 +122,10 @@
                     confirmButtonText: "Sí, eliminarlo"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Si el usuario confirma, enviar el formulario para eliminar el registro
-                        document.querySelector('.formulario_eliminar').submit();
+                        // Si el usuario confirma, enviar el formulario para eliminar el registro                       
+                        let formId = 'formulario_eliminar_' + id;
+                        let form = document.getElementById(formId);
+                        form.submit();
                     }
                 });
             }

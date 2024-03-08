@@ -16,10 +16,20 @@ class AjusteController extends Controller
     public function update(Request $request, User $user)
     {
         
-        $user->update([
-            $user->name = $request->name,
-            $user->lastname = $request->lastname
+              
+        $validatedData = $request->validate([
+            'prefijo' => 'required',
+            'name' => 'required',
+            'lastname' => 'required',
         ]);
+    
+        $user->update([
+            'prefijo' => $validatedData['prefijo'],
+            'name' => $validatedData['name'],
+            'lastname' => $validatedData['lastname'],
+        ]);
+
+        
 
         return redirect()->route('admin.ajuste.datos.update', $user)->with('success', 'Administrador actualizado');
 

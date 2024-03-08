@@ -10,7 +10,7 @@ class Demandante extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['dni', 'codigo', 'nombres', 'apellidos', 'domicilio', 'telefono', 'email', 'ecuela_profesionale_id'];
+    protected $fillable = ['dni', 'codigo', 'nombres', 'apellidos', 'domicilio', 'telefono', 'email', 'tipo', 'firma', 'ecuela_profesionale_id'];
 
     public function ecuela_profesionale()
     {

@@ -13,7 +13,7 @@
                         <div class="w-full">
                             <label for="dni"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
-                            <input type="number" wire:model="dni" id="dni"
+                            <input type="text" wire:model="dni" id="dni"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="12345678" required="">
                             <div>
@@ -26,7 +26,7 @@
                         <div class="w-full">
                             <label for="codigo"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Código</label>
-                            <input type="number" wire:model="codigo" id="codigo"
+                            <input type="text" wire:model="codigo" id="codigo"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="171142">
                             <div>
@@ -67,7 +67,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Domicilio</label>
                             <input type="text" wire:model="domicilio" id="domicilio"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Av. Julio cesar" required="">
+                                placeholder="Av. Julio cesar" >
                             <div>
                                 @error('domicilio')
                                     <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span

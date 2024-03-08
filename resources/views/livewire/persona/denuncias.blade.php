@@ -3,6 +3,19 @@
         <div class="py-2 px-4 mx-auto max-w-2xl  ">
 
             @if ($accion == 'yaexiste')
+                <section class="bg-white dark:bg-gray-900">
+                    <div class=" px-4 mx-auto max-w-screen-xl  lg:px-6 ">
+                        <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16 ">
+                            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Generar
+                                Denuncia
+                            </h2>
+                            <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Ingrese datos
+                                correctos para
+                                validar la acción</p>
+                        </div>
+
+                    </div>
+                </section>
                 <form wire:submit="save">
 
                     <div class="dark:bg-gray-800 py-4 px-10 mt-6">
@@ -116,8 +129,8 @@
                                     placeholder="Your description here"></textarea>
                                 <div>
                                     @error('descripcion_echos')
-                                        <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span
-                                                class="font-medium">{{ $message }}</span></p>
+                                        <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400">
+                                            <span class="font-medium">{{ $message }}</span></p>
                                     @enderror
                                 </div>
                             </div>

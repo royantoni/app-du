@@ -18,7 +18,7 @@ class Mensaje extends Component
         $this->mensajes = $this->obj_demandante->vista_mensajes();
 
         //Datos del administrador
-        $usuario = DB::table('users')->where('privilegio', '=', 2)->first();
+        $usuario = DB::table('users')->where('privilegio', '=', 1)->first();
         $this->administrador = $usuario->name.' '.$usuario->lastname;
         
     }

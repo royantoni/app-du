@@ -130,6 +130,7 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-4 py-3">#</th>
+                                <th scope="col" class="px-4 py-3">Expediente</th>
                                 <th scope="col" class="px-4 py-3">Demandante</th>
                                 <th scope="col" class="px-4 py-3">Fecha</th>
                                 <th scope="col" class="px-4 py-3">Estado</th>
@@ -143,6 +144,7 @@
                             @forelse ($expedientes as $item)
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                    <td class="px-4 py-3">{{ $item->numeroexp }}</td>
                                     <th scope="row"
                                         class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $item->nombres }} {{ $item->apellidos }}</th>

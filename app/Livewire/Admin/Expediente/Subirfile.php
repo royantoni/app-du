@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Expediente;
 
 use App\Models\Archivo;
 use App\Models\Demandante;
+use App\Models\Expediente;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -36,6 +37,8 @@ class Subirfile extends Component
     public $ruta_ver = "";
     public $tipo_archivo = "";
 
+    public $numero_expediente = "";
+
     public function mount()
     {
 
@@ -47,6 +50,10 @@ class Subirfile extends Component
         //Recuperar los archivos del expediente y asignarlos a un array
         $this->obj_archivo = new Archivo();
         $this->archivos_tabla = $this->obj_archivo->mostrar_archivos_por_expediente($this->id_expediente);
+
+        $expediente = Expediente::find($this->id_expediente);
+        $this->numero_expediente = $expediente->numeroexp;
+        
     }
 
     public function save()

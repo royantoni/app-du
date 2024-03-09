@@ -22,7 +22,7 @@ class Verfile extends Component
     public $imagenes = [];
     public $documentos = [];
 
-
+    public $numero_expediente = "";
 
     public function mount()
     {
@@ -65,6 +65,9 @@ class Verfile extends Component
             }
             
         }
+
+        $expediente = Expediente::find($this->id_expediente);
+        $this->numero_expediente = $expediente->numeroexp;
 
         /* dd($this->imagenes[0][0]); */
     }

@@ -25,7 +25,7 @@
 
                 </div>
             @else
-                <h2 class="mb-8 text-sm  text-gray-900 dark:text-white text-center">Subir una Imagen de su firma con fondo flanco claro
+                <h2 class="mb-8 text-sm  text-gray-900 dark:text-white text-center">Subir una Imagen de su firma con fondo blanco claro
                     con tamaños 400px x 400px, se recomienda utilizar <a
                         href="https://www.iloveimg.com/es/recortar-imagen" class="font-bold text-blue-600 "
                         target="_blank">IloveIMG</a> para recortar tus firmas</h2>

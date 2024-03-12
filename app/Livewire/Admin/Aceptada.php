@@ -22,6 +22,7 @@ class Aceptada extends Component
 
     public $id_expediente;
     public $estado;
+    public $observacione;
 
     public function updatingSearch()
     {
@@ -38,7 +39,7 @@ class Aceptada extends Component
         try {
             DB::table('expedientes')
             ->where('id', $this->id_expediente)
-            ->update(['estadoe' => $this->estado]);
+            ->update(['estadoe' => $this->estado, 'observacione' => $this->observacione]);
 
         } catch (\Throwable $th) {
             throw $th;

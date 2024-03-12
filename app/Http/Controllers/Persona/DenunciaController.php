@@ -40,4 +40,7 @@ class DenunciaController extends Controller
     public function ver_files($id_expediente){
         return view('admin.expediente.ver', compact('id_expediente'));
     }
+    public function actualizar_denuncia($id_denuncia){
+        return view('persona.updatedenuncia', compact('id_denuncia'));
+    }
 }

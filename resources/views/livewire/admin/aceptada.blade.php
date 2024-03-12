@@ -282,6 +282,14 @@
                                 <label for="default-radio-3"
                                     class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Archivado</label>
                             </div>
+                            
+                        </div>
+                        <div class="w-full mb-2">
+                            <label for="derechos_estimen_afectados"
+                                class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comentario</label>
+                            <textarea id="derechos_estimen_afectados" wire:model="observacione" rows="3"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Afectados"></textarea>
                         </div>
                         <button type="submit" data-modal-toggle="crud-modal"
                             class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

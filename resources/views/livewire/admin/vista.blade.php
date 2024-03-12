@@ -1,40 +1,143 @@
 <div>
 
-    <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
-        <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+    <main class="  bg-white dark:bg-gray-900 antialiased">
+        <div class="text-center pb-16">
+            <a href="{{ route('admin.denuncia.index') }}"
+                class=" text-white inline-flex items-center mt-4 sm:mt-6 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                Atras
+            </a>
+        </div>
+
+        <div class="flex justify-between px-4  ">
+
             @if ($encontrado > 0)
                 <article
-                    class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+                    class="mx-auto w-full  format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
                     <header class="mb-4 lg:mb-6 not-format">
                         <address class="flex items-center mb-6 not-italic">
-                            <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                            <div class="flex flex-wrap items-center mr-3 text-sm text-gray-900 dark:text-white">
                                 <img class="mr-4 w-16 h-16 rounded-full" src="{{ asset('logo/icono_du.svg') }}"
                                     alt="Jese Leos">
                                 <div>
                                     <p rel="author" class="text-xl font-bold text-gray-900 dark:text-white">
                                         {{ $nombres_demandante }}</p>
-                                    <p class="text-base text-gray-500 dark:text-gray-400">{{ $dni }},
-                                        {{ $tipo_demandante }} ({{ $email }})</p>
+
                                     <p class="text-base text-gray-500 dark:text-gray-400"><time pubdate
                                             datetime="2022-02-08" title="February 8th, 2022">Usuario desde
                                             {{ Carbon\Carbon::parse($fecha_creacion_demandante)->diffForHumans() }}</time>
                                     </p>
-                                    <p><code>{{ $telefono_demandante }}</code></p>
+
+
+                                    <p class="text-base text-gray-500 dark:text-gray-400">
+                                        {{ $tipo_demandante }} ({{ $email }})</p>
+
+                                </div>
+                                <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+                                    <div class="md:flex md:justify-between">
+
+                                        <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 w-full">
+                                            <div>
+
+                                                <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                                                    <li class="mb-4">
+                                                        <p class="dark:text-gray-200">DNI</p>
+                                                        <p>{{ $dni }}</p>
+                                                    </li>
+                                                    <li>
+                                                        <p class="dark:text-gray-200">Telefono</p>
+                                                        <p>{{ $telefono_demandante }}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div>
+
+                                                <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                                                    <li class="mb-4">
+                                                        <p class="dark:text-gray-200">Código</p>
+                                                        <p>{{ $codigo }}</p>
+                                                    </li>
+                                                    <li>
+                                                        <p class="dark:text-gray-200">Domicilio</p>
+                                                        <p>{{ $domicilio }}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div>
+
+                                                <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                                                    <li class="mb-4">
+                                                        <p class="dark:text-gray-200">Facultad</p>
+                                                        <p>{{ $facultad }}</p>
+                                                    </li>
+                                                    <li>
+                                                        <p class="dark:text-gray-200">Escuela Profesional</p>
+                                                        <p>{{ $carrera }} - {{ $sede }} </p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+
                                 </div>
                             </div>
+
                         </address>
+                        <button
+                            wire:click="descargar_fut('{{ $word }}')"
+                            type="button"
+                            class="text-white bg-blue-700 hover:bg-blue-800 mb-4 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Descargar FUT</button>
                         <h1
                             class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
                             {{ $asunto }}</h1>
                     </header>
                     <p class="lead">{{ $descripcion }}.</p>
-                    <p>Dicho de la descripcion anterior la queja esta dirigido al Sr(a)
-                        <strong>{{ $quejado }}</strong>
-                        con cargo de <strong>{{ $cargo }}</strong> en la oficina de
-                        <strong>{{ $oficina }}</strong>, para ello adjunto mis documentos que indican las pruebas
-                        de
-                        los echos incluyendo mi solicitud realizada a través de la plataforma.
-                    </p>
+
+
+
+                    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+                        <p>Datos del quejado Sr(a)
+                            <strong>{{ $quejado }}</strong>
+                        </p>
+                        <div class="md:flex md:justify-between">
+
+
+                            <div class="grid grid-cols-2  sm:gap-6 sm:grid-cols-2 w-full">
+                                <div>
+
+                                    <div class="text-gray-500 dark:text-gray-400 font-medium">
+                                        <div class="flex justify-start gap-4">
+                                            <p class="dark:text-gray-200 ">Cargo:</p>
+                                            <p class="mr-4">{{ $cargo }}</p>
+                                        </div>
+                                        <div class="flex justify-start gap-4">
+                                            <p class="dark:text-gray-200 ">Oficina:</p>
+                                            <p class="mr-4">{{ $oficina }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+
+                                    <div class="text-gray-500 dark:text-gray-400 font-medium">
+                                        <div class="flex justify-start gap-4">
+                                            <p class="dark:text-gray-200 ">Telefono:</p>
+                                            <p class="mr-4">{{ $telefono_quejado }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
 
                     <figure class="">
                         <div class="w-full  flex justify-center">
@@ -46,18 +149,29 @@
                     </figure>
                     <h2>Adjunto de imagenes</h2>
 
-                    @if (count($imagenes) > 0)
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <div class="flex flex-col md:grid md:grid-cols-3 gap-3">
+
+                        @if (count($imagenes) > 0)
                             @foreach ($imagenes as $item)
-                                <div>
-                                    <img class=" h-auto max-w-full rounded-lg" src="{{ asset('storage/' . $item[1]) }}"
-                                        alt="">
+                                <div class="relative rounded overflow-hidden">
+                                    <img src="{{ asset('storage/' . $item[1]) }}" alt="Hanging Planters"
+                                        class="w-full">
+                                    <p
+                                        class="cursor-pointer absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-2xl text-center text-white font-roboto font-medium group-hover:bg-opacity-60 transition">
+                                        @
+                                    </p>
                                 </div>
                             @endforeach
-                        </div>
-                    @else
-                        <div class="text-sm dark:text-gray-300"> No hay prueba en imagenes </div>
-                    @endif
+                        @else
+                            <div class="text-sm dark:text-gray-300"> No hay prueba en imagenes </div>
+                        @endif
+
+
+
+
+                    </div>
+
+
                     <h2>Adjunto de audio</h2>
                     @if (count($audios) > 0)
                         <div class="grid grid-cols-1 gap-2 ">
@@ -136,12 +250,8 @@
 
                 </article>
             @else
-                <h1
-                    class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-gray-500 text-center w-full">
-                    El demandante no adjuntó archivos</h1>
+                <div class="text-sm dark:text-gray-300 text-center w-full"> No hay prueba en documentos </div>
             @endif
-
-
 
         </div>
     </main>

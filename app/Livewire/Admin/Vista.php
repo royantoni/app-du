@@ -110,6 +110,18 @@ class Vista extends Component
         }
     }
 
+    public function descargar_fut($archivo){
+        try {
+            $headers = [
+                "Content-Type: application/octet-stream"
+            ];
+
+            return response()->download(public_path($archivo), 'FUT-'.$this->nombres_demandante.'.docx', $headers);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function render()
     {
         return view('livewire.admin.vista');

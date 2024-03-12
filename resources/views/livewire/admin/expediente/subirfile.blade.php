@@ -12,7 +12,7 @@
     </section>
 
     <section class="bg-white dark:bg-gray-900">
-        <div class="py-2 px-4 mx-auto max-w-2xl  ">
+        <div class="py-2 px-4 mx-auto   ">
 
             <form wire:submit="save">
                 <div class="dark:bg-gray-800 py-4 px-10">

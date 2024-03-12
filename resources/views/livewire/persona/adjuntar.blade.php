@@ -1,7 +1,7 @@
 <div>
 
     <section class="bg-white dark:bg-gray-900">
-        <div class="py-2 px-4 mx-auto max-w-2xl  ">
+        <div class="py-2 px-4 mx-auto   ">
 
             <form wire:submit="save">
                 <div class="dark:bg-gray-800 py-4 px-10">
@@ -68,7 +68,7 @@
 
             </form>
 
-            <div class="overflow-x-auto mt-4">
+            <div class="overflow-x-auto mt-4 ">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -167,7 +167,7 @@
                             @if ($tipo_archivo == 'imagen')
                                 <img class="h-auto max-w-full rounded-lg"
                                     src="{{ asset('storage/' . $ruta_ver) }}"
-                                    alt="">
+                                    alt="Imagen">
                             @else
                                 <iframe class="w-full min-h-screen flex justify-center text-center" width="100%"
                                     src="{{ asset('storage/' . $ruta_ver) }}" frameborder="0"></iframe>
@@ -210,7 +210,7 @@
                             <div class="col-span-2">
                                 <label for="name"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                                <input type="text" wire:model="nombre_nuevo"
+                                <input type="text" wire:model="nombre_nuevo" 
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="My nombre" required="">
                             </div>

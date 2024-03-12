@@ -91,5 +91,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     //Modulo ajustes
     Route::get('ajustes', [AdminDenunciaController::class, 'ajustes'])->name('ajustes.inicio');
+
+    //Modulo crear expediente con fut presencial
+    Route::get('crear/expediente', [AdminDenunciaController::class, 'presencial'])->name('create.presencial');
 });
 

@@ -35,4 +35,8 @@ class DenunciaController extends Controller
     public function ajustes(){
         return view('admin.ajustes.inicio');
     }
+
+    public function presencial(){
+        return view('admin.presencial.create');
+    }
 }

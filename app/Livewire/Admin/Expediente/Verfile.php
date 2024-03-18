@@ -14,21 +14,26 @@ class Verfile extends Component
     public $datos;
 
     //DATOS EN LA VISTA
-    public $dni, $codigo, $nombres_demandante, $domicilio, $telefono_demandante, $email, $tipo_demandante, $firma, $fecha_creacion_demandante;
-    public $asunto, $descripcion, $pdf, $word, $fecha_denuncia;
+    public $dni, $codigo, $nombres_demandante, $domicilio, $telefono_demandante, $email, $tipo_demandante;
+    public $asunto, $descripcion, $word, $fecha_denuncia;
     public $quejado, $telefono_quejado, $cargo, $oficina;
     public $carrera, $sigla, $sede, $facultad;
+    public $numero_expediente, $estado_exp, $comentario;
 
     public $imagenes = [];
     public $documentos = [];
 
-    public $numero_expediente = "";
+  
 
     public function mount()
     {
 
         $this->obj_expediente = new Expediente();
+        $data = $this->obj_expediente->obtener_adjuntos_del_demandante($this->id_expediente);
+       /*  dd($data); */
+
         $this->datos = $this->obj_expediente->vista_general_expediente($this->id_expediente);
+        dd($this->datos);
 
         $this->dni = $this->datos[0]->dni;
         $this->codigo = $this->datos[0]->codigo;
@@ -37,13 +42,11 @@ class Verfile extends Component
         $this->telefono_demandante = $this->datos[0]->telefono;
         $this->email = $this->datos[0]->email;
         $this->tipo_demandante = $this->datos[0]->tipo;
-        $this->firma = $this->datos[0]->firma;
-        $this->fecha_creacion_demandante = $this->datos[0]->fdemandante;
+        
 
         $this->asunto = $this->datos[0]->asunto;
         $this->descripcion = $this->datos[0]->descripcion_echos;
         $this->word = $this->datos[0]->word;
-        $this->pdf = $this->datos[0]->pdf;
         $this->fecha_denuncia = $this->datos[0]->fdenuncia;
 
         $this->quejado = $this->datos[0]->qnombres . ' ' . $this->datos[0]->qapellidos;

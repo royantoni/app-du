@@ -42,5 +42,15 @@ class Expediente extends Model
         return $data;
     }
 
+    public function obtener_adjuntos_del_demandante($id_expediente){
+        $data = DB::table('denuncias as den')
+        ->join('expedientes as exp', 'exp.denuncia_id', 'den.id')
+        ->leftJoin('documentos as doc', 'doc.denuncia_id', 'den.id')
+        ->where('exp.id', '=', $id_expediente)
+        ->get();
+
+        return $data;
+    }
+
 
 }

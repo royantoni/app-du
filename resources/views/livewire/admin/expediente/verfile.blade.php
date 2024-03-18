@@ -26,7 +26,7 @@
                                     {{ $tipo_demandante }} ({{ $email }})</p>
                                 <p class="text-base text-gray-500 dark:text-gray-400"><time pubdate
                                         datetime="2022-02-08" title="February 8th, 2022">Usuario desde
-                                        {{ Carbon\Carbon::parse($fecha_creacion_demandante)->diffForHumans() }}</time>
+                                        {{-- {{ Carbon\Carbon::parse($fecha_creacion_demandante)->diffForHumans() }} --}}</time>
                                 </p>
                                 <p><code>{{ $telefono_demandante }}</code></p>
                             </div>

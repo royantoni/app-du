@@ -22,4 +22,25 @@ class DenunciaController extends Controller
     public function actualizar_datos(){
         return view('persona.actualizar_datos');
     }
+
+    public function subir_firma(){
+        return view('persona.firma');
+    }
+    public function ver_mensajes(){
+        return view('persona.mensaje');
+    }
+
+    public function vista_general_persona($id_denuncia){
+        return view('persona.vista', compact('id_denuncia'));
+    }
+
+    public function lista_expedientes(){
+        return view('persona.listaexpediente');
+    }
+    public function ver_files($id_expediente){
+        return view('admin.expediente.ver', compact('id_expediente'));
+    }
+    public function actualizar_denuncia($id_denuncia){
+        return view('persona.updatedenuncia', compact('id_denuncia'));
+    }
 }

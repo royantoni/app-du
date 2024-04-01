@@ -93,7 +93,7 @@ class Denuncias extends Component
         }
        
 
-        $this->dispatch('post-created');
+        
         
     }
 

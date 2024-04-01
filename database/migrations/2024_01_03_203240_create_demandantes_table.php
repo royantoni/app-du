@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('telefono');
             $table->string('email');
             $table->string('tipo')->nullable();
+            $table->string('firma')->nullable();
             $table->timestamps();
 
             $table->foreignId('ecuela_profesionale_id')->nullable()->constrained()

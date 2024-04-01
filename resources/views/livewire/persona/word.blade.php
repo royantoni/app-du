@@ -5,25 +5,10 @@
         <div class="py-2 px-4 mx-auto max-w-2xl  ">
 
             <section class="bg-white dark:bg-gray-900">
-                <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-                    <button wire:click="llenar_plantilla"
-                        class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
-                        role="alert">
-                        <span class="text-xs bg-primary-600 rounded-full text-white px-4 py-1.5 mr-3"></span> <span
-                            class="text-sm font-medium">Crear solicitud</span>
-                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                    @if ($cantidad_adjuntos <= 0)
-                        <div class="py-8  mx-auto max-w-screen-xl text-center lg:py-16 ">
+                <div class=" px-4 mx-auto max-w-screen-xl text-center  lg:px-12">
 
-                            <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16  dark:text-gray-400">
-                                Antes de
-                                realizar la accion adjunte archivos</p>
+                    @if ($cantidad_adjuntos <= 0)
+                        <div class="  mx-auto max-w-screen-xl text-center  ">
                             <div class="flex flex-col mb-8 lg:mb-16  sm:flex-row sm:justify-center sm:space-y-0 ">
                                 <a href="{{ route('persona.adjuntar', $id_denuncia) }}"
                                     class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
@@ -40,9 +25,34 @@
 
                         </div>
                     @endif
+                   {{--  <section class="bg-white dark:bg-gray-900">
+                        <div class=" px-4 mx-auto max-w-screen-xl  lg:px-6 ">
+                            <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16 ">
+                                <h2
+                                    class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                                    Generar solicitud</h2>
+                                <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Crear la
+                                    solictud en documentos Word y PDF</p>
+                            </div>
 
+                        </div>
 
+                    </section> --}}
+
+                    <button wire:click="llenar_plantilla"
+                        class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+                        role="alert">
+                        <span class="text-xs bg-primary-600 rounded-full text-white px-4 py-1.5 mr-3"></span> <span
+                            class="text-sm font-medium">Crear solicitud</span>
+                        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
                     @if ($visible)
+                        
                         <div
                             class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
 
@@ -73,6 +83,20 @@
                             </button>
                         </div>
                     @endif
+                    <div>
+                        <a href="{{ route('persona.lista') }}"
+                            class=" text-white inline-flex items-center mt-4 sm:mt-6 bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                            <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Atras
+                        </a>
+                    </div>
+
+
 
 
 
@@ -104,6 +128,18 @@
                         position: "top-end",
                         icon: "warning",
                         title: "Adjuntar documentos por favor!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then((result) => {
+                        window.location.href =
+                            "{{ route('persona.word', ['id_denuncia' => $id_denuncia]) }}";
+                    });
+                });
+                Livewire.on('adjunte-firma', () => {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "warning",
+                        title: "Adjuntar firma por favor!",
                         showConfirmButton: false,
                         timer: 1500
                     }).then((result) => {

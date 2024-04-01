@@ -34,4 +34,9 @@ class Lista extends Component
         return to_route('persona.lista');
 
     }
+
+    public function eliminar_denuncia($id_denuncia){
+        DB::table('denuncias')->where('id', $id_denuncia)->delete();
+        return to_route('persona.lista');
+    }
 }

@@ -29,7 +29,7 @@
                         clip-rule="evenodd" />
                 </svg>
 
-                Mi lista
+                Mis denuncias
             </a>
         </div>
     </div>

@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="shortcut icon" href="{{ asset('logo/icono_du.svg') }}" type="image/x-icon">
 
 
 
@@ -18,7 +19,7 @@
 
 <body class="antialiased">
     {{--  INTERFAZ DE USUARIO PARA EL ADMINISTRADOR --}}
-    @if (auth()->user()->privilegio == 2)
+    @if (auth()->user()->privilegio == 2 || auth()->user()->privilegio == 1)
         @include('layouts.navigation')
 
         <div class="p-4 sm:ml-64 dark:bg-gray-900 min-h-screen">

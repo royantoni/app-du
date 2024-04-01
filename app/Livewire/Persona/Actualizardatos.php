@@ -21,11 +21,11 @@ class Actualizardatos extends Component
 
 
     //Validación para demandantes 
-    
-    public $dni;
 
-    #[Validate('max:8')]
+    public $dni;
     public $codigo;
+
+    
 
     #[Validate('required')]
     public $nombres;
@@ -39,9 +39,9 @@ class Actualizardatos extends Component
     #[Validate('required|max:9')]
     public $telefono;
 
-   
+
     public $email;
-    public $tipo = null;
+    public $tipo = "";
 
 
     public $ecuela_profesionale_id = null;
@@ -56,11 +56,15 @@ class Actualizardatos extends Component
             'dni' => [
                 'required',
                 'min:8',
-                'max:8',
+                'max:8',                
                 Rule::unique('demandantes')->ignore($this->demandantemodel),
             ],
             'email' => [
                 'required',
+                Rule::unique('demandantes')->ignore($this->demandantemodel),
+            ],
+            'codigo' => [
+                'max:8',                
                 Rule::unique('demandantes')->ignore($this->demandantemodel),
             ]
         ];
@@ -114,8 +118,8 @@ class Actualizardatos extends Component
 
     public function save()
     {
-        
 
+        
 
         $this->validate();
 
@@ -137,14 +141,13 @@ class Actualizardatos extends Component
                 $this->demandantemodel->email = $this->email;
                 $this->demandantemodel->tipo = $this->tipo;
                 $this->demandantemodel->ecuela_profesionale_id = $this->ecuela_profesionale_id;
-                $this->demandantemodel->save();                
-                $this->dispatch('demandante_actualizada');              
+                $this->demandantemodel->save();
+                $this->dispatch('demandante_actualizada');
             } else {
                 Demandante::create(
-                    $this->only('dni', 'codigo', 'nombres', 'apellidos', 'domicilio', 'telefono', 'email', 'ecuela_profesionale_id', 'tipo')
-                );                
+                    $this->only('dni', 'codigo', 'nombres', 'apellidos', 'domicilio', 'telefono', 'email', 'tipo', 'ecuela_profesionale_id', )
+                );
                 $this->dispatch('demandante_creada');
-               
             }
 
 

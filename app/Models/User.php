@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -19,6 +20,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'privilegio',
+        'prefijo',
+        'lastname',
         'email',
         'password',
     ];
@@ -42,4 +46,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    //Consultas
+    public function buscar_user($gmail){
+        $data = DB::table('users')
+        ->where('email', '=', $gmail)
+        ->where('privilegio', '=', 3)
+        ->get();
+
+        return $data;
+    }
 }
